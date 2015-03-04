@@ -35,7 +35,19 @@ class Review
      */
     private $grade;
 
+    /**
+     * Film - powiązanie
+     * @ORM\ManyToOne(targetEntity="Movie", inversedBy="reviews")
+     * @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
+     **/
+    private $movie;
 
+    /**
+     * Uzytkownik - powiązanie
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+    private $user;
     /**
      * Get id
      *

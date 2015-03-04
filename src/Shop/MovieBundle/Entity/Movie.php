@@ -3,7 +3,7 @@
 namespace Shop\MovieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Movie
  *
@@ -49,7 +49,22 @@ class Movie
      */
     private $category;
 
+    /**
+     * To ile razy film będzie kupiony
+     * @ORM\OneToMany(targetEntity="Purchase", mappedBy="movie")
+     **/
+    private $purchases;
 
+    /**
+     * Komentarze do filmu
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="movie")
+     **/
+    private $reviews;
+    
+    public function __construct() {
+        $this->reviews = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
+    }
     /**
      * Get id
      *
