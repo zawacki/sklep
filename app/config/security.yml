@@ -25,5 +25,6 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/.*?pay, role: ROLE_USER }
-        - { path: ^/.*?add, role: ROLE_ADMIN }
+        - { path: ^/.*?new, role: ROLE_ADMIN }
         - { path: ^/.*?edit, role: ROLE_ADMIN }
+        - { path: ^/purchase, role: ROLE_ADMIN }

@@ -38,7 +38,7 @@
                     <h4><i class="glyphicon glyphicon-comment"></i></h4>
                     {{ (entity.reviews|length > 0)?'':'Brak recenzji' }}
                     {% for review in entity.reviews %}
-                    <p>{{ review.review }} - {{review.user.username}}</p>
+                    <p><span style="font-weight:bold">{{review.user.username|default('')}}</span> napisał : {{ review.review }} </p>
                     {% endfor %}
                     <p><a title="Dodaj komentarz" data-toggle="modal" href="#addWidgetModal" data-movie-id="{{ entity.id }}">
 

@@ -42,15 +42,36 @@ class Purchase
      **/
     private $user;
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+    /**
      * Get id
      *
      * @return integer 
      */
+
+    public function __construct()
+    {
+        // ustawianie daty na domyślny czas podczas tworzenia
+        $this->date = new \DateTime();
+    }
     public function getId()
     {
         return $this->id;
     }
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    public function setEmail($email)
+    {
+        $this->email = $email;
 
+        return $this;
+    }
     /**
      * Set date
      *

@@ -30,7 +30,7 @@
         
         <li><a href="{{path('fos_user_registration_register')}}"><i class="glyphicon glyphicon-plus"></i> Rejestracja</a></li>
         <li><a href="{{path('fos_user_security_login')}}"><i class="glyphicon glyphicon-home"></i> Zaloguj</a></li>
-        <li><a href="{{path('fos_user_profile_show')}}"><i class="glyphicon glyphicon-lock"></i> Wygloguj</a></li>
+        <li><a href="{{path('fos_user_security_logout')}}"><i class="glyphicon glyphicon-lock"></i> Wyloguj</a></li>
       {% if app.user %}
         <li class="dropdown">
           <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Witaj {{ app.user.username }} <span class="caret"></span></a>
@@ -61,9 +61,9 @@
             <ul class="list-unstyled collapse in" id="userMenu">
                 <li class="active"> <a href="{{ path('movie') }}"><i class="glyphicon glyphicon-home"></i> Wszystkie filmy</a></li>
                 <li><a href="{{ path('movie_new')}}"><i class="glyphicon glyphicon-plus"></i> Dodaj film</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Recenzje</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Lista zakupów</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-exclamation-sign"></i> Zasady</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Recenzje [w budowie]</a></li>
+                <li><a href="{{ path('purchase')}}"><i class="glyphicon glyphicon-flag"></i> Lista zakupów</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-exclamation-sign"></i> Zasady [w budowie]</a></li>
                 <li><a href="{{path('fos_user_profile_show')}}"><i class="glyphicon glyphicon-user"></i> Pokaz profil</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-off"></i> Wyloguj</a></li>
             </ul>
@@ -136,7 +136,7 @@
       </div>
       <div class="modal-footer">
         <a href="#" data-dismiss="modal" class="btn">Close</a>
-        {% if app.user %}<a href="#" onclick="addReview()" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Zakup film</a>{% endif %}
+        {% if app.user %}<a href="#" onclick="buyMovie()" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Zakup film</a>{% endif %}
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dalog -->
@@ -149,17 +149,24 @@
     <script src="{{ asset('js/scripts.js')}}"></script>
 
 <script type="text/javascript">
-    
+// Dodawanie recenzji
 function addReview()
 {   
-    $.post( "{{ path('movie') }}", $("#addWidgetModal form" ).serialize(), function(){
+    $.post( "{{ path('review_create') }}", $("#addWidgetModal form" ).serialize(), function(){
 
         $('#addWidgetModal').modal('hide');  
     });
     
 }
+// Zakup filmu (wysyłanie zapytania ajaxem do serwera, do kontrolera DefaultController)
+function buyMovie()
+{   
+    $.post( "{{ path('purchase_create') }}", $("#buyWidget form" ).serialize(), function(){
 
-
+        $('#buyWidgetform').modal('hide');  
+    });
+    
+}
 // przekazywanie parametrów do bootstrap modal
 $('#addWidgetModal, #buyWidget').on('show.bs.modal', function(e) {
 
