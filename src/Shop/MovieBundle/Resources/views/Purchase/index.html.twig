@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Lista zakupów </h1>
+
+    <hr>
+    <table class="table">
+    <tr>
+      <td>#</td>
+      <td>Uzytkownik</td>
+      <td>Email</td>
+      <td>Film (ilosc zakupow)</td>
+      <td>Czas zakupu</td>
+      <td>Dostarczony</td>
+    </tr>
+    {% for entity in entities %}
+      <tr>
+        <td>{{ entity.id }}</td>
+        <td>{{ entity.user.username|default('-') }}</td>
+        <td><a>{{ entity.email }}</a></td>
+        <td>{{ entity.movie.title }} ({{ entity.movie.purchases|length }})</td>
+        <td>{{ entity.date|date('Y-m-d') }}</td>
+        <td><span style="font-color:red">Nie <a class="btn btn-xs btn-danger">Obsłuż [test]</a></span></td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
