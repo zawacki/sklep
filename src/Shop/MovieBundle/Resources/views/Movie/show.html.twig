@@ -10,35 +10,22 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>Tytuł</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>Opis</th>
                 <td>{{ entity.description }}</td>
             </tr>
             <tr>
-                <th>Price</th>
+                <th>Cena</th>
                 <td>{{ entity.price }}</td>
             </tr>
             <tr>
-                <th>Category</th>
+                <th>Kategoria</th>
                 <td>{{ entity.category }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('movie') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('movie_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+ <h1></h1>
+<hr/>
+<div class="row clearfix">
+
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="col-md-8">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+</div>
+{% endblock %}

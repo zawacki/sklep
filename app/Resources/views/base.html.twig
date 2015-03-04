@@ -22,7 +22,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Dashboard</a>
+      <a class="navbar-brand" href="{{ path('movie') }}">Sklep z filmami</a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
@@ -93,20 +93,54 @@
         <h4 class="modal-title">Dodaj recenzje</h4>
       </div>
       <div class="modal-body">
+        {% if app.user %}
         <form>
             <input type="hidden" name="movie_id" value="" />
+            <label> Napisz co myślisz o tym filmie </label>
             <p><textarea style="width:100%" name="review" class="form-control"></textarea></p>
         </form>
+        {% else %}
+        <p><font style="color:red">Zaloguj się aby korzystać ze sklepu!</font></p>
+ 
+        {% endif %}
       </div>
       <div class="modal-footer">
         <a href="#" data-dismiss="modal" class="btn">Close</a>
+        {% if app.user %}
         <a href="#" onclick="addReview()" class="btn btn-primary">Dodaj recenzje</a>
+        {% endif %}
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dalog -->
 </div><!-- /.modal -->
 
-
+<div class="modal" id="buyWidget">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Zakup film</h4>
+      </div>
+      <div class="modal-body">
+        <p><font style="color:red">Zakup filmów, w wersji testowej. Implementacja płatności jeszcze nie gotowa.</font></p>
+        {% if app.user %}
+        <form>
+            <label>Podaj adres email (lub zostaw ten podawany podcza rejestracji), wyślemy Ci linka z możliwością pobrania filmu w jakości HD!</label>
+            <input type="hidden" name="movie_id" value="" />
+            <p><input style="width:100%" name="email" class="form-control" value="{{app.user.email}}"></input></p>
+        </form>
+        {% else %}
+        <p><font style="color:red">Zaloguj się aby korzystać ze sklepu!</font></p>
+        
+    {% endif %}
+      </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+        {% if app.user %}<a href="#" onclick="addReview()" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Zakup film</a>{% endif %}
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dalog -->
+</div><!-- /.modal -->
 
 
     <!-- script references -->
@@ -127,7 +161,7 @@ function addReview()
 
 
 // przekazywanie parametrów do bootstrap modal
-$('#addWidgetModal').on('show.bs.modal', function(e) {
+$('#addWidgetModal, #buyWidget').on('show.bs.modal', function(e) {
 
     //get data-id attribute of the clicked element
     var movie_id = $(e.relatedTarget).data('movie-id');

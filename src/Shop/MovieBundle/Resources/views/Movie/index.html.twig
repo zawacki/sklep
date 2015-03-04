@@ -17,22 +17,24 @@
                     <!--tabs-->
              
                 <div class="">
-                <ul class="nav nav-tabs" id="myTab">
-                  <li class="active"><a href="#opis" data-toggle="tab">Informacje</a></li>
-                  <li><a href="#recenzje" data-toggle="tab">Recenzje</a></li>
-                  <li><a href="#admin" data-toggle="tab">Administracja</a></li>
+                <ul class="nav nav-tabs" id="myTab{{ entity.id }}">
+                  <li class="active"><a href="#opis{{ entity.id }}" data-toggle="tab">Informacje</a></li>
+                  <li><a href="#recenzje{{ entity.id }}" data-toggle="tab">Recenzje</a></li>
+                  {%  if is_granted('ROLE_ADMIN') %}
+                  <li><a href="#admin{{ entity.id }}" data-toggle="tab">Administracja</a></li>
+                {% endif %}
                 </ul>
                 
                 <div class="tab-content">
-                  <div class="tab-pane active" id="opis">
+                  <div class="tab-pane active" id="opis{{ entity.id }}">
                     <h4><i class="glyphicon glyphicon-info"></i></h4>
                     <p>Kupiono {{ entity.purchases|length }} razy</p>
                     <div class="col-md-8">Opis: {{ entity.description }}</div>
                     <div class="col-md-12">
                         <hr/>
-                    <p><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Zakup</a></p></div>
+                    <p><a data-toggle="modal" href="#buyWidget" data-movie-id="{{ entity.id }}" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Zakup</a></p></div>
                   </div>
-                  <div class="tab-pane" id="recenzje">
+                  <div class="tab-pane" id="recenzje{{ entity.id }}">
                     <h4><i class="glyphicon glyphicon-comment"></i></h4>
                     {{ (entity.reviews|length > 0)?'':'Brak recenzji' }}
                     {% for review in entity.reviews %}
@@ -42,11 +44,13 @@
 
                         <span class="glyphicon glyphicon-plus-sign"></span> Dodaj recenzje</a></p>
                   </div>
-                  <div class="tab-pane" id="admin">
+                  {%  if is_granted('ROLE_ADMIN') %}
+                  <div class="tab-pane" id="admin{{ entity.id }}">
                     <h4><i class="glyphicon glyphicon-cog"></i></h4>
                     <a class="btn btn-info" href="">Edytuj</a> 
                     
                   </div>
+                  {% endif %}
                 </div>
                 </div>
             
