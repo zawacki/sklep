@@ -1,47 +1,61 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Movie list</h1>
+    <h1>Wszystkie filmy </h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <hr>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('movie_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.price }}</td>
-                <td>{{ entity.category }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('movie_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('movie_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="row">
+           
+             
+              <div class="panel panel-default">
+                  <div class="panel-heading"><h4><i>{{entity.category}}</i> - {{ entity.title }}
+                    <span class="pull-right">Cena: ${{ entity.price }}</span></h4>
 
-        <ul>
-        <li>
-            <a href="{{ path('movie_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+                </div>
+                  <div class="panel-body">
+                    <!--tabs-->
+             
+                <div class="">
+                <ul class="nav nav-tabs" id="myTab">
+                  <li class="active"><a href="#opis" data-toggle="tab">Informacje</a></li>
+                  <li><a href="#recenzje" data-toggle="tab">Recenzje</a></li>
+                  <li><a href="#admin" data-toggle="tab">Administracja</a></li>
+                </ul>
+                
+                <div class="tab-content">
+                  <div class="tab-pane active" id="opis">
+                    <h4><i class="glyphicon glyphicon-info"></i></h4>
+                    <p>Kupiono {{ entity.purchases|length }} razy</p>
+                    <div class="col-md-8">Opis: {{ entity.description }}</div>
+                    <div class="col-md-12">
+                        <hr/>
+                    <p><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Zakup</a></p></div>
+                  </div>
+                  <div class="tab-pane" id="recenzje">
+                    <h4><i class="glyphicon glyphicon-comment"></i></h4>
+                    {{ (entity.reviews|length > 0)?'':'Brak recenzji' }}
+                    {% for review in entity.reviews %}
+                    <p>{{ review.review }} - {{review.user.username}}</p>
+                    {% endfor %}
+                    <p><a title="Dodaj komentarz" data-toggle="modal" href="#addWidgetModal" data-movie-id="{{ entity.id }}">
+
+                        <span class="glyphicon glyphicon-plus-sign"></span> Dodaj recenzje</a></p>
+                  </div>
+                  <div class="tab-pane" id="admin">
+                    <h4><i class="glyphicon glyphicon-cog"></i></h4>
+                    <a class="btn btn-info" href="">Edytuj</a> 
+                    
+                  </div>
+                </div>
+                </div>
+            
+                  </div>
+              </div>
+        </div>
+     
+       
+        {% endfor %}
+
+    
     {% endblock %}
