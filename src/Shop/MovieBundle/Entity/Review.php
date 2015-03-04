@@ -103,4 +103,50 @@ class Review
     {
         return $this->grade;
     }
+
+    /**
+     * Set movie
+     *
+     * @param \Shop\MovieBundle\Entity\Movie $movie
+     * @return Review
+     */
+    public function setMovie(\Shop\MovieBundle\Entity\Movie $movie = null)
+    {
+        $this->movie = $movie;
+
+        return $this;
+    }
+
+    /**
+     * Get movie
+     *
+     * @return \Shop\MovieBundle\Entity\Movie 
+     */
+    public function getMovie()
+    {
+        return $this->movie;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Shop\MovieBundle\Entity\User $user
+     * @return Review
+     */
+    public function setUser(\Shop\MovieBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Shop\MovieBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

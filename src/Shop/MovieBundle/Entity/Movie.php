@@ -166,4 +166,70 @@ class Movie
     {
         return $this->category;
     }
+
+    /**
+     * Add purchases
+     *
+     * @param \Shop\MovieBundle\Entity\Purchase $purchases
+     * @return Movie
+     */
+    public function addPurchase(\Shop\MovieBundle\Entity\Purchase $purchases)
+    {
+        $this->purchases[] = $purchases;
+
+        return $this;
+    }
+
+    /**
+     * Remove purchases
+     *
+     * @param \Shop\MovieBundle\Entity\Purchase $purchases
+     */
+    public function removePurchase(\Shop\MovieBundle\Entity\Purchase $purchases)
+    {
+        $this->purchases->removeElement($purchases);
+    }
+
+    /**
+     * Get purchases
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPurchases()
+    {
+        return $this->purchases;
+    }
+
+    /**
+     * Add reviews
+     *
+     * @param \Shop\MovieBundle\Entity\Review $reviews
+     * @return Movie
+     */
+    public function addReview(\Shop\MovieBundle\Entity\Review $reviews)
+    {
+        $this->reviews[] = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * Remove reviews
+     *
+     * @param \Shop\MovieBundle\Entity\Review $reviews
+     */
+    public function removeReview(\Shop\MovieBundle\Entity\Review $reviews)
+    {
+        $this->reviews->removeElement($reviews);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
 }
